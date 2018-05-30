@@ -1,0 +1,38 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+
+    <title>My page title</title>
+  </head>
+
+  <body>
+    <ul>
+      
+    </ul>
+    <button>send to port2</button>
+  </body>
+  <script>
+  var list = document.querySelector('ul');
+  var button = document.querySelector('button');
+  var port1;
+
+  onmessage = function(e) {
+    port1 = e.ports[0];
+
+    port1.onmessage = function(e){
+      var listItem = document.createElement('li');
+      listItem.textContent = e.data;
+      list.appendChild(listItem);
+    }
+  }
+  
+  button.onclick = function(e) {
+    port1.postMessage('hello port2');
+  }
+
+
+</html>
+</html>
