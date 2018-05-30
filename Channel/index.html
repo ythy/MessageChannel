@@ -1,0 +1,42 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+
+    <title>Channel messaging demo</title>
+  </head>
+
+  <body>
+
+    <form>
+      <button>create channel</button>
+    </form>
+
+    <iframe class="fr1" src="page2.html" width='480' height='320'>
+    </iframe>
+    <iframe class="fr2" src="page3.html" width='480' height='320'>
+    </iframe>
+  </body>
+  <script>
+
+    var textInput = document.querySelector('.message-box');
+    var button = document.querySelector('button');
+    
+    var ifr1 = document.querySelector('.fr1');
+    var otherWindow1 = ifr1.contentWindow;
+
+    var ifr2 = document.querySelector('.fr2');
+    var otherWindow2 = ifr2.contentWindow;
+    
+    var channel = new MessageChannel();
+
+
+    button.onclick = function(e) {
+      e.preventDefault(); 
+      otherWindow1.postMessage('hello', '*', [channel.port1]);
+      otherWindow2.postMessage('hello', '*', [channel.port2]);   
+    }
+  </script>
+</html>
